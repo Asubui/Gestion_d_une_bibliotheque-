@@ -1,4 +1,6 @@
 
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /*
@@ -149,10 +151,8 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         Home home = new Home ();
-        home.setVisible(true);
-        this.hide();
-        /* String user = textUser.getText();
+        
+         String user = textUser.getText();
         String pass = textPwd.getText();
 
         if(textUser.getText().equals("") ||  textPwd.getText().equals(""))
@@ -162,17 +162,19 @@ public class Login extends javax.swing.JFrame {
         else if (user.equals("Biblio") && pass.equals("ICT207"))
         {
             Home home = new Home ();
-            home.setVisible(true);
+        home.setVisible(true);
+        this.hide();
         }
         else
         {
             JOptionPane.showMessageDialog(this, "Nom d'utilisateur ou mot de passe incorrect !");
         }
-        */
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        close();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void textUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textUserActionPerformed
@@ -220,4 +222,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField textPwd;
     private javax.swing.JTextField textUser;
     // End of variables declaration//GEN-END:variables
+
+ // fermeture de la fenetre
+    public void close(){
+        WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+        
+    }
 }

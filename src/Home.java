@@ -1,3 +1,7 @@
+
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -88,6 +92,7 @@ public class Home extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button.png"))); // NOI18N
         jMenuItem1.setText("Fermer");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +135,9 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        propos   prop= new  propos ();
+         prop.setVisible(true);
+          this.hide();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -144,13 +152,15 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        IssueBook issuebook = new IssueBook();
-        issuebook.setVisible(true);
+          propos   prop= new  propos ();
+         prop.setVisible(true);
+          this.hide();
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-         
+         close();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnOpABNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpABNActionPerformed
@@ -212,4 +222,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
+
+    // fermeture de la fenetre
+    public void close(){
+        WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+        
+    }
+
 }
+
