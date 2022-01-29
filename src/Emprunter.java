@@ -115,6 +115,7 @@ public class Emprunter extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         textRechercher = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableEmp = new javax.swing.JTable();
         btnRetour = new javax.swing.JButton();
@@ -172,6 +173,15 @@ public class Emprunter extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(0, 0, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modify.png"))); // NOI18N
+        jButton3.setText("Modifier");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -203,9 +213,11 @@ public class Emprunter extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnSupABN)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(145, 145, 145))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +243,9 @@ public class Emprunter extends javax.swing.JFrame {
                     .addComponent(btnAjouterABN)
                     .addComponent(btnSupABN))
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton3))
                 .addGap(34, 34, 34))
         );
 
@@ -400,6 +414,47 @@ public class Emprunter extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel df = (DefaultTableModel)tableEmp.getModel();
+        int selectIndex = tableEmp.getSelectedRow();
+
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous modifier ce Pret ?", "Attention",JOptionPane.YES_NO_OPTION);
+
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+
+            try {
+                String id = df.getValueAt(selectIndex, 0).toString();
+                String nom = textName.getText();
+                String code = textCode.getText();
+                String retour = textBack.getText();
+                
+
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/gestionbibliotheque?useSSL=true","root","");
+
+                pst = con.prepareStatement("UPDATE Emprunter set Nom = ?, CodeBar = ?, DateRetour = ? WHERE Nom = ? ");
+                pst.setString(1, nom);
+                pst.setString(2, code);
+                pst.setString(3, retour);
+                pst.setString(4, id);
+
+                pst.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Pret Modifié !");
+                table_update();
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SubscriberOperation.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(SubscriberOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +494,7 @@ public class Emprunter extends javax.swing.JFrame {
     private javax.swing.JButton btnAjouterABN;
     private javax.swing.JButton btnRetour;
     private javax.swing.JButton btnSupABN;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

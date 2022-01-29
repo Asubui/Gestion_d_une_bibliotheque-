@@ -513,8 +513,8 @@ public final class SubscriberOperation extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-          DefaultTableModel model = (DefaultTableModel)tableSubs.getModel();
-        int index = tableSubs.getSelectedRow();
+          DefaultTableModel df = (DefaultTableModel)tableSubs.getModel();
+        int selectIndex = tableSubs.getSelectedRow();
         
         int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous modifier cet Abonne ?", "Attention",JOptionPane.YES_NO_OPTION);
             
@@ -522,7 +522,7 @@ public final class SubscriberOperation extends javax.swing.JFrame {
             {
                 
                 try {
-                String id = model.getValueAt(index, 0).toString();
+                String id = df.getValueAt(selectIndex, 0).toString();
                 String nom = textName.getText();
                 String ville = textCity.getText();
                 String tel = textTel.getText();
@@ -534,13 +534,13 @@ public final class SubscriberOperation extends javax.swing.JFrame {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/gestionbibliotheque?useSSL=true","root","");
             
             
-                pst = con.prepareStatement("UPDATE Abonne set Nom = ?, Ville = ?, Tel = ?, Gmail =?, NumCNI = ? WHERE Nom = ? ");
-                pst.setString(0, nom);
-                pst.setString(1, ville);
-                pst.setString(2, tel);
-                pst.setString(3, gmail);
-                pst.setString(4, numCNI);
-                pst.setString(5, id);
+                pst = con.prepareStatement("UPDATE ABONNE set Nom = ?, Ville = ?, Tel = ?, Gmail =?, NumCNI = ? WHERE Nom = ? ");
+                pst.setString(1, nom);
+                pst.setString(2, ville);
+                pst.setString(3, tel);
+                pst.setString(4, gmail);
+                pst.setString(5, numCNI);
+                pst.setString(6, id);
             
                 pst.executeUpdate();
             

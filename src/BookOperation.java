@@ -219,7 +219,7 @@ public class BookOperation extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel5.setText("Date de retour");
 
-        jButton3.setText("Actualiser");
+        jButton3.setText("vider");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -493,17 +493,16 @@ public class BookOperation extends javax.swing.JFrame {
 
     private void btnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifActionPerformed
         // TODO add your handling code here:
-          DefaultTableModel d1 = (DefaultTableModel)tableBook.getModel();
+         DefaultTableModel df = (DefaultTableModel)tableBook.getModel();
         int selectIndex = tableBook.getSelectedRow();
         
-        int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous modifier les info de ce livre ?", "Attention",JOptionPane.YES_NO_OPTION);
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Voulez-vous modifier cet Abonne ?", "Attention",JOptionPane.YES_NO_OPTION);
             
             if(dialogResult == JOptionPane.YES_OPTION)
             {
                 
                 try {
-               
-                 String id = d1.getValueAt(selectIndex, 0).toString();
+                String id = df.getValueAt(selectIndex, 0).toString();
                 String CodeBar =  textCode.getText();
                 String  nom =   textName.getText();
                 String   dateAcqui=   textAcquisition.getText();
@@ -511,25 +510,23 @@ public class BookOperation extends javax.swing.JFrame {
                 String salle = comboSalle.getSelectedItem().toString();
                 String IdLib =  textIdLibrary.getText();
                 
-                 pst.executeUpdate();
-                
             
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://localhost/gestionbibliotheque?useSSL=true","root","");
             
             
-                pst = con.prepareStatement("UPDATE Abonne set Codebar = ?, Ville = ?, DateAcquisition = ?, DatePrevue =?, Sale = ? ,ID_Librairie = ? WHERE CodeBar = ? ");
+                pst = con.prepareStatement("UPDATE LIVRE set Codebar = ?, Nom = ?, DateAcquisition = ?, DatePrevue =?, Sale = ? ,ID_Librairie = ? WHERE CodeBar = ? ");
                 pst.setString(1, CodeBar);
                 pst.setString(2, nom);
                 pst.setString(3, dateAcqui);
                 pst.setString(4, dateRetour);
                 pst.setString(5, salle);
                 pst.setString(6, IdLib);
-                pst.setString(7, id);
+                 pst.setString(7, id);
             
                 pst.executeUpdate();
             
-            JOptionPane.showMessageDialog(this, "Livre Modifié !");
+            JOptionPane.showMessageDialog(this, "Les infos du livre Modifiées avec succées !");
             table_update();
             
         } catch (ClassNotFoundException ex) {
