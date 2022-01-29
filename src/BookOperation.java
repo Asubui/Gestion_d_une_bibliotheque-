@@ -28,6 +28,7 @@ public class BookOperation extends javax.swing.JFrame {
      */
     public BookOperation() {
         initComponents();
+        table_update();
     }
     
      Connection con;
@@ -55,9 +56,9 @@ public class BookOperation extends javax.swing.JFrame {
             
             
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/phonebook?useSSL=true","root","");
-            pst = con.prepareStatement("SELECT * FROM book");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/gestionbibliotheque?useSSL=true","root","");
+            pst = con.prepareStatement("SELECT * FROM livre");
             
             ResultSet rs = pst.executeQuery();
             
@@ -92,6 +93,17 @@ public class BookOperation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableBook = new javax.swing.JTable();
+        btnPremier = new javax.swing.JButton();
+        btnPrecedent = new javax.swing.JButton();
+        btnSuivant = new javax.swing.JButton();
+        btnDernier = new javax.swing.JButton();
+        btnRetour = new javax.swing.JButton();
+        javax.swing.JPanel jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        textRechercher = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -104,18 +116,83 @@ public class BookOperation extends javax.swing.JFrame {
         textBack = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         textAcquisition = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        btnSup = new javax.swing.JButton();
+        javax.swing.JButton jButton3 = new javax.swing.JButton();
+        javax.swing.JButton btnSup = new javax.swing.JButton();
         comboSalle = new javax.swing.JComboBox<>();
         btnAjt = new javax.swing.JButton();
-        btnModif = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableBook = new javax.swing.JTable();
-        textRechercher = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        javax.swing.JButton btnModif = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tableBook.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Code Bar", "Nom", "Date_Acquisition", "Date Retour", "Salle", "ID Librairie"
+            }
+        ));
+        tableBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBookMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableBook);
+
+        btnPremier.setBackground(new java.awt.Color(0, 102, 153));
+        btnPremier.setText("<< Premier");
+        btnPremier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPremierActionPerformed(evt);
+            }
+        });
+
+        btnPrecedent.setBackground(new java.awt.Color(0, 102, 153));
+        btnPrecedent.setText("< Precedent");
+        btnPrecedent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrecedentActionPerformed(evt);
+            }
+        });
+
+        btnSuivant.setBackground(new java.awt.Color(0, 102, 153));
+        btnSuivant.setText("Suivant >");
+        btnSuivant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuivantActionPerformed(evt);
+            }
+        });
+
+        btnDernier.setBackground(new java.awt.Color(0, 102, 153));
+        btnDernier.setText("Dernier >>");
+        btnDernier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDernierActionPerformed(evt);
+            }
+        });
+
+        btnRetour.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back(1).png"))); // NOI18N
+        btnRetour.setText("Retour");
+        btnRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetourActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jPanel2.setBackground(new java.awt.Color(0, 204, 0));
+
+        textRechercher.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textRechercherKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        jLabel1.setText("Entrez une Chaine");
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51)));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
@@ -149,6 +226,7 @@ public class BookOperation extends javax.swing.JFrame {
             }
         });
 
+        btnSup.setBackground(new java.awt.Color(204, 0, 0));
         btnSup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
         btnSup.setText("Supprimer");
         btnSup.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +242,7 @@ public class BookOperation extends javax.swing.JFrame {
             }
         });
 
+        btnAjt.setBackground(new java.awt.Color(0, 153, 0));
         btnAjt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
         btnAjt.setText("Ajouter");
         btnAjt.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +251,7 @@ public class BookOperation extends javax.swing.JFrame {
             }
         });
 
+        btnModif.setBackground(new java.awt.Color(0, 0, 204));
         btnModif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modify.png"))); // NOI18N
         btnModif.setText("Modifier");
         btnModif.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +310,7 @@ public class BookOperation extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAjt))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnModif)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,57 +340,93 @@ public class BookOperation extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tableBook.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(textRechercher, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textRechercher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-            },
-            new String [] {
-                "Code Bar", "Nom", "Date_Acquisition", "Date Retour", "Salle", "ID Librairie"
-            }
-        ));
-        jScrollPane1.setViewportView(tableBook);
-
-        textRechercher.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textRechercherKeyReleased(evt);
-            }
-        });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
-        jLabel1.setText("Entrez une Chaine");
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(textRechercher, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(btnPremier)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnPrecedent)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnSuivant)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDernier))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnRetour)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textRechercher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(170, 170, 170))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPremier)
+                            .addComponent(btnPrecedent)
+                            .addComponent(btnSuivant)
+                            .addComponent(btnDernier))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRetour)
+                .addGap(0, 57, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -363,6 +479,7 @@ public class BookOperation extends javax.swing.JFrame {
             pst.setString(6, IdLib);
 
             pst.executeUpdate();
+            table_update();
 
             JOptionPane.showMessageDialog(this, "Un livre a été ajouté avec succés !");
         } catch (ClassNotFoundException ex) {
@@ -401,7 +518,7 @@ public class BookOperation extends javax.swing.JFrame {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/gestionbibliotheque?useSSL=true","root","");
             
             
-                pst = con.prepareStatement("UPDATE Abonne set Nom = ?, Ville = ?, Tel = ?, Gmail =?, NumCNI = ? WHERE Nom = ? ");
+                pst = con.prepareStatement("UPDATE Abonne set Codebar = ?, Ville = ?, DateAcquisition = ?, DatePrevue =?, Sale = ? ,ID_Librairie = ? WHERE CodeBar = ? ");
                 pst.setString(1, CodeBar);
                 pst.setString(2, nom);
                 pst.setString(3, dateAcqui);
@@ -471,6 +588,40 @@ public class BookOperation extends javax.swing.JFrame {
         search(searchString);
     }//GEN-LAST:event_textRechercherKeyReleased
 
+    private void btnPremierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPremierActionPerformed
+        Premier();
+    }//GEN-LAST:event_btnPremierActionPerformed
+
+    private void btnPrecedentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrecedentActionPerformed
+        Precedent();
+    }//GEN-LAST:event_btnPrecedentActionPerformed
+
+    private void btnSuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuivantActionPerformed
+        suivant();
+    }//GEN-LAST:event_btnSuivantActionPerformed
+
+    private void btnDernierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDernierActionPerformed
+        dernier();
+    }//GEN-LAST:event_btnDernierActionPerformed
+
+    private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
+        this.hide();
+        Home form = new Home();
+        form.setVisible(true);
+    }//GEN-LAST:event_btnRetourActionPerformed
+
+    private void tableBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBookMouseClicked
+        // TODO add your handling code here:
+              DefaultTableModel mode = (DefaultTableModel)tableBook.getModel();
+      int index = tableBook.getSelectedRow();
+       textCode.setText(mode.getValueAt(index,0).toString());
+        textName.setText(mode.getValueAt(index,1).toString());
+        textAcquisition.setText(mode.getValueAt(index,2).toString());
+        textBack.setText(mode.getValueAt(index,3).toString());
+         comboSalle.setSelectedItem(mode.getValueAt(index, 4).toString());
+        textIdLibrary.setText(mode.getValueAt(index,5).toString());
+    }//GEN-LAST:event_tableBookMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -500,6 +651,7 @@ public class BookOperation extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new BookOperation().setVisible(true);
             }
@@ -508,10 +660,12 @@ public class BookOperation extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAjt;
-    private javax.swing.JButton btnModif;
-    private javax.swing.JButton btnSup;
+    private javax.swing.JButton btnDernier;
+    private javax.swing.JButton btnPrecedent;
+    private javax.swing.JButton btnPremier;
+    private javax.swing.JButton btnRetour;
+    private javax.swing.JButton btnSuivant;
     private javax.swing.JComboBox<String> comboSalle;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -520,6 +674,7 @@ public class BookOperation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableBook;
     private javax.swing.JTextField textAcquisition;
@@ -529,4 +684,80 @@ public class BookOperation extends javax.swing.JFrame {
     private javax.swing.JTextField textName;
     private javax.swing.JTextField textRechercher;
     // End of variables declaration//GEN-END:variables
+
+
+//Defilement
+
+int d;
+    void defilemnet(int defiler){
+        try{
+            
+           if(d == 0){
+               btnPremier.setEnabled(false);
+               btnPrecedent.setEnabled(false);
+               
+           }else{
+               btnPremier.setEnabled(true);
+               btnPrecedent.setEnabled(true);
+       
+           }
+            if(d == tableBook.getRowCount()){
+               btnSuivant.setEnabled(false);
+               btnDernier.setEnabled(false);
+               
+           }else{
+               btnSuivant.setEnabled(true);
+               btnDernier.setEnabled(true);
+       
+           }
+            textCode.setText(tableBook.getValueAt(defiler,0).toString());
+            textName.setText(tableBook.getValueAt(defiler,1).toString());
+            textAcquisition.setText(tableBook.getValueAt(defiler,2).toString());
+            textBack.setText(tableBook.getValueAt(defiler,3).toString());
+            comboSalle.setSelectedItem(tableBook.getValueAt(defiler,4).toString());
+            textIdLibrary.setText(tableBook.getValueAt(defiler,5).toString());
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Defilement", JOptionPane.ERROR_MESSAGE);        }
+
+}
+    // boutton premier
+    void Premier(){
+        try{
+            d=0;
+            defilemnet(d);
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Premier", JOptionPane.ERROR_MESSAGE);        }
+    }
+    
+     // boutton precedent
+    void Precedent(){
+        try{
+            d--;
+            defilemnet(d);
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Precedent", JOptionPane.ERROR_MESSAGE);        }
+    }
+    
+    
+    // boutton suivant
+    void suivant(){
+        try{
+            d++;
+            defilemnet(d);
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Suivant", JOptionPane.ERROR_MESSAGE);        }
+    }
+    
+    
+     // boutton Dernier
+    void dernier(){
+        try{
+            d =tableBook.getRowCount()-1 ;
+            defilemnet(d);
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Dernier", JOptionPane.ERROR_MESSAGE);        }
+    }
+    
+
+    
 }
